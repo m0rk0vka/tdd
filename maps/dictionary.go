@@ -1,11 +1,15 @@
 package maps
 
-import "errors"
-
-var (
-	ErrNotFound = errors.New("could not find the key you are looking for")
-	ErrKeyExist = errors.New("cannot add key because it already exist")
+const (
+	ErrNotFound = DictionaryErr("could not find the key you are looking for")
+	ErrKeyExist = DictionaryErr("cannot add key because it already exist")
 )
+
+type DictionaryErr string
+
+func (e DictionaryErr) Error() string {
+	return string(e)
+}
 
 type Dictionary map[string]string
 
