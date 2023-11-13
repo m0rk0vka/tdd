@@ -7,24 +7,21 @@ import (
 )
 
 func TestCountDown(t *testing.T) {
-	b := &bytes.Buffer{}
-	s := &SpySleeper{}
+	t.Run("prints 3 to Go!", func(t *testing.T) {
+		b := &bytes.Buffer{}
 
-	Countdown(b, s)
+		Countdown(b, &SpyCountdownOperations{})
 
-	got := b.String()
-	want := `3
+		got := b.String()
+		want := `3
 2
 1
 Go!`
 
-	if got != want {
-		t.Errorf("got %q want %q", got, want)
-	}
-
-	if s.Calls != 4 {
-		t.Errorf("Not enough calls for sleeper, want 4 got %d", s.Calls)
-	}
+		if got != want {
+			t.Errorf("got %q want %q", got, want)
+		}
+	})
 	t.Run("sleep before every print", func(t *testing.T) {
 		spySleepPrinter := &SpyCountdownOperations{}
 		Countdown(spySleepPrinter, spySleepPrinter)
