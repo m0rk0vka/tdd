@@ -41,14 +41,26 @@ func TestAdd(t *testing.T) {
 }
 
 func TestUpdate(t *testing.T) {
-	key := "key"
-	value := "value"
-	d := Dictionary{key: value}
-	newValue := "new value"
+	t.Run("Update existing key", func(t *testing.T) {
+		key := "key"
+		value := "value"
+		d := Dictionary{key: value}
+		newValue := "new value"
 
-	d.Update(key, newValue)
+		err := d.Update(key, newValue)
 
-	assertValues(t, d, key, newValue)
+		assertErrors(t, err, nil)
+		assertValues(t, d, key, newValue)
+	})
+	t.Run("Trying to update new key", func(t *testing.T) {
+		key := "key"
+		newValue := "value"
+		d := Dictionary{}
+
+		err := d.Update(key, newValue)
+
+		assertErrors(t, err, ErrKeyDoesNotExist)
+	})
 }
 
 func assertStrings(t testing.TB, got, want string) {
