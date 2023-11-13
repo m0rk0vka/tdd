@@ -40,6 +40,17 @@ func TestAdd(t *testing.T) {
 	})
 }
 
+func TestUpdate(t *testing.T) {
+	key := "key"
+	value := "value"
+	d := Dictionary{key: value}
+	newValue := "new value"
+
+	d.Update(key, newValue)
+
+	assertValues(t, d, key, newValue)
+}
+
 func assertStrings(t testing.TB, got, want string) {
 	t.Helper()
 	if got != want {
