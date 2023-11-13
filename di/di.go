@@ -4,13 +4,18 @@ package main
 import (
 	"fmt"
 	"io"
-	"os"
+	"log"
+	"net/http"
 )
 
 func Greet(w io.Writer, name string) {
 	fmt.Fprintf(w, "Hello, %s", name)
 }
 
+func MyGreetingHandler(w http.ResponseWriter, r *http.Request) {
+	Greet(w, "world")
+}
+
 func main() {
-	Greet(os.Stdout, "Someone")
+	log.Fatal(http.ListenAndServe(":5050", http.HandlerFunc(MyGreetingHandler)))
 }
