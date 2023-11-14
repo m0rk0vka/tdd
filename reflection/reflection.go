@@ -13,7 +13,7 @@ func walk(x interface{}, fn func(string)) {
 	switch v.Kind() {
 	case reflect.String:
 		fn(v.String())
-	case reflect.Slice:
+	case reflect.Slice, reflect.Array:
 		numberOfValues = v.Len()
 		getField = v.Index
 	case reflect.Struct:
