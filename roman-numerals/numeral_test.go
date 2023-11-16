@@ -3,11 +3,23 @@ package romannumerals
 import "testing"
 
 func TestRomanNumerals(t *testing.T) {
-	got := ConverToRoman(1)
+	cases := []struct {
+		Description string
+		Arabic      int
+		Want        string
+	}{
+		{"1 gets converted to I", 1, "I"},
+		{"2 gets converted to II", 2, "II"},
+		{"3 gets converted to III", 3, "III"},
+	}
 
-	want := "I"
+	for _, test := range cases {
+		t.Run(test.Description, func(t *testing.T) {
+			got := ConverToRoman(test.Arabic)
 
-	if got != want {
-		t.Errorf("got %q, want %q", got, want)
+			if got != test.Want {
+				t.Errorf("got %q, want %q", got, test.Want)
+			}
+		})
 	}
 }
